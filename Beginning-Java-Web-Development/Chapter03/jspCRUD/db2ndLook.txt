@@ -1,0 +1,65 @@
+ # A quick look at some DB issues
+
+   ## Getting a better PostgreSQL data type for money: 'DECIMAL' instead of 'REAL'
+     
+      ### 'REAL' in PostgreSQL is a 4-byte floating-point type, the counterpart of Java's 'float' type.
+
+          #### 'float' is not suited for arbitrary-precision arithemtic, the type needed when dealing with, e.g., money
+
+      ### 'DECIMAL' is the PostgreSQL type intended for arbitrary-precision arithemtic
+
+      ### Although the PostgreSQL 'DECIMAL' type supports up to a 1,000 digits of precision,
+          Java's BigDecimal type supports far more.
+
+   ## How to change the column type in a table (in general, can be tricky if the table's not empty):
+ 
+       ### psql:
+
+           skistuff=# alter table skisEtc alter column price type decimal(10, 2);  
+
+               #### The 10 in decimal(10, 2) is the 'precision', the number of significant digits.
+                    The 2 in decimal(10, 2) is the 'scale', the number of digits after the decimal point.
+
+           skistuff=# \d+ skisEtc
+
+                                                   Table "public.skisetc"
+       Column  |         Type          |                      Modifiers                       |
+     ----------+-----------------------+------------------------------------------------------+
+      id       | integer               | not null default nextval('skisetc_id_seq'::regclass) |
+      product  | character varying(50) | not null                                             |
+      category | character varying(50) | not null                                             |
+      price    | numeric(10,2)         |                                                      |
+
+     Indexes:
+         "skisetc_pkey" PRIMARY KEY, btree (id)
+-------------------------------------------------------------------------------------------------------------------
+
+  ## Queries used in the 'skiStuffCRUD' web app 
+
+    1. From 'show.jsp': 
+
+    <sql:query var = "listStuff" dataSource = "${myDS}">
+	SELECT * FROM skisEtc where id = ${param.id};
+    </sql:query>
+
+    2. From 'saveEdits.jsp':
+
+    <sql:update dataSource = "${myDS}" var = "result">
+      UPDATE skisEtc SET product = ?, 
+                         category = ?, 
+                         price = <%= Float.parseFloat(request.getParameter("price").trim()) %>
+                         where id = ${param.id};
+      <sql:param value = "${param.product}"/>
+      <sql:param value = "${param.category}"/>
+    </sql:update>
+
+    ### The Float.parseFloat is tricky in that there can be information loss in the conversion
+        between decimal and binary represenations of numeric values. 
+
+    ### Example of a 'parameterized query' (aka a 'prepared statement').
+   
+    ### Parameterized queries have the security advantage by making it hard for an attacker to alter the
+        query's intent, and such queries are relatively straightforward to read.
+ 
+        ### The data values for the parameterized query could (should) be verified through, for instance,
+            regular-expression analysis.

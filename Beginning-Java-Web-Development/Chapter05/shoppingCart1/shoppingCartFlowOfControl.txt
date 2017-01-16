@@ -1,0 +1,59 @@
+ -- Flow of control in the 'shopping cart' web app
+
+  # Main modules, in pairs:
+
+    shop.jsp         -- OrderHandler.java    ## main shopping page, servlet that handles a submission
+    
+    confirmOrder.jsp -- OrderPlacer.java     ## confirmation page, servlet that places a confirmed order
+
+    ## There are some auxiliary pages as well (e.g., 'error.jsp' and 'badResult.jsp')
+
+    ## The JSP pages use EL, and JSTL 'sql', 'core', and 'format' packages.
+
+   ---------------------------------------------------------------------------------------------------------
+
+  # 'welcome page' to order-handling servlet
+
+   'welcome page'                  computes the total cost of the chosen 'line items',
+                                     does some data validation
+           \            submit             /
+         shop.jsp------------------->OrderHandler servlet
+            \
+   table of ski inventory items
+
+    ## Points of interest: the OrderHandler servlet needs to know how many rows are in the
+                           'ski inventory' table, as the product list may change in size
+                           over time--and unexpectedly.
+
+       ### The 'shop.jsp' page uses JSTL sql to get the table's contents for display, using
+           a 'SELECT * from skisEtc' to do so.
+
+       ### The table's 'row count' is unlike the information passed from 'shop.jsp' to the servlet:
+
+           #### An item's quantity, price, name, and so forth are displayed to the user, but
+                the 'row count' is implicit--it's not displayed as an explicit value.
+
+           #### The 'hidden input', one of the oldest tricks in the 'web app' book, fits the bill perfectly.
+
+  # order-handling servlet to 1st 'confirm' page
+
+       
+    does data validation,
+    creates a list of LineItems                displays the LineItems, allowing only 'quantity' to be changed
+             \                    redirect               \
+         OrderHandler servlet------------------>confirmOrder.jsp
+                                                      \
+                                                 displays the order total
+
+    ## All 'currency' math is done in BigDecimal.
+
+ 
+  # confirmOrder.jsp to OrderPlacer servlet
+
+     user can change quantities,
+     but nothing else                      computes final total, creates order and saves it to DB
+             \                  submit               /
+         confirmOrder.jsp---------------------->OrderPlacer servlet
+                                                       \
+                                           provides a link to 'shop.jsp' so user can continue shopping
+            

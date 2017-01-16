@@ -1,0 +1,24 @@
+ # Flow of control in the revised 'jspCRUD' web app 
+
+ ## Revised web app is now a 'web front end' for the 'skisEtc' table.
+
+ ## 'skiStuffCRUD.jsp' is the 'welcome page', and implements 'read all' of the CRUD operations
+ 
+    ### 'show.jsp' implements 'read one at a time' 
+
+ ## For CRUD operations that change the DB ('create', 'update', and 'delete'), there are pairs
+    of JSP scripts. 
+
+ ## Here's the structure of the welcome page, 'skiStuffCRUD.jsp'
+
+           Form/Link          Target
+        --------------------------------------
+         create.jsp          save.jsp
+         edit.jsp            saveEdits.jsp
+         delete.jsp          deleteForSure.jsp
+
+ 
+
+                           
+
+    

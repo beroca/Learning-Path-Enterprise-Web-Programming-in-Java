@@ -1,0 +1,66 @@
+ 
+ -- Logic in the PasswordHashing example
+
+    # Steps:
+
+        1. Ensure that the user's password meets the 'strong password' requirement as specified with the regex.
+
+        2. Add 'salt' or random bits. (For instance, our 'strong password' is, at miminum, about 110 bits; add 
+           another 130 or so random bits as 'salt'.)
+
+        3. Compute the 'digest' (aka 'messsage digest', 'hash') of the salted password.
+	   (In our case, use a 32-byte digest.)
+
+        4. For the registration system, save (a) user's email, (b) salt, and (c) computed digest to the DB.
+
+           -- For the login system, which provides the user's email as the login name and the user's password,
+              recompute the digest. Does the recomputed digest equal the digest stored in the DB?
+
+           Example: Alice and Bob each enter 'apples123A!' as a password.
+
+               Alice's salted password:  apples123A! a10m9m7kt82jmthn3fpu006ho   ## for readability, blank added
+
+               Bob's salted password:    apples123A! 6lgjcnr75lfl9bqnl1ot6h2sr   ## ditto
+
+              In the DB, save  
+                 Alice's email:                     alice@someEmail.org
+                 Alice's salt:                      a10m9m7kt82jmthn3fpu006ho 
+                 Digest of Alice's salted password: af 7b 3e...   ## 32 bytes in all
+ 
+              Depiction of the registration system:
+    
+		            SHA-256 algorithm in this example
+           'message'                   \                      'digested message'    store email, salt, and digest
+               \               +----------------+                      /                       /
+         salted password------>| message digest |------>fixed-length digest of the input----->DB
+                               +----------------+
+
+
+    # psql session for creating the table in PostgreSQL
+
+       % psql skistuff
+
+         skistuff=# create table users (id serial primary key not null,
+	                                email varchar(40) not null,
+					salt varchar(40) not null,
+					digest bytea not null);
+
+         skistuff=# \d+ users
+                                                      Table "public.users"
+          Column |         Type          |                     Modifiers                      | Storage  
+         --------+-----------------------+----------------------------------------------------+----------
+          id     | integer               | not null default nextval('users_id_seq'::regclass) | plain     
+          email  | character varying(40) | not null                                           | extended  
+          salt   | character varying(40) | not null                                           | extended  
+          digest | bytea                 | not null                                           | extended  
+
+         Indexes: "users_pkey" PRIMARY KEY, btree (id)
+
+
+    # After the test insert, the table looks like this:
+
+      skistuff=# select  * from users;
+
+id|       email       |            salt          |                               digest                               
+--+-------------------+--------------------------+-------------------------------------------------------------------
+1 |alice@someEmail.org|269uh05rjbb4buv053hgr63jj8| \xed5327cd2fc1a7f705a038aa8a36a63af8e81c11ae697c4fa9ddc76a4f27d0bb

@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+<web-app>
+    <servlet>
+        <servlet-name>orderH</servlet-name>
+        <servlet-class>orders.OrderHandler</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>orderP</servlet-name>
+        <servlet-class>orders.OrderPlacer</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>orderH</servlet-name>
+        <url-pattern>/handleOrder</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>orderP</servlet-name>
+        <url-pattern>/placeOrder</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+      <welcome-file>shop.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>     

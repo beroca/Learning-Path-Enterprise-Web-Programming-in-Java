@@ -1,0 +1,59 @@
+ # Overview of the revised 'skiStuff' web app (hereafter, the 'skiServlet' web app)
+
+   ## Assume the user's input is 'tainted'.
+
+   ## Use some enhanced features of HTML5 to ensure that a product's name and category meet
+      the minimum length requirement, currently set to 8 printing characters
+
+   ## Add extensive server-side data verification as a double-check on the data.
+
+      ### To that end, have the target for a 'create' or 'update' operation be an explicit
+          servlet, not a JSP script.
+
+          #### A backend POJO would work as well, but the servlet also makes it easy to filter
+               the request by 'method': only POST requests are accepted for 'create' and 'udpate'.
+  
+      ### Emphasize PreparedStatements in updating the DB from the servlet.
+
+      ### The 'BigDecimal' type is used instead of 'float' to represent product prices.
+
+-------------------------------------------------------------------------------------------------
+
+ # Flow of control in the 'skiServlet' web app
+
+   ## Only two CRUD operations require data validation: 'create' and 'edit'
+
+   ## The target for the 'create' and 'edit' forms is now the 'DataVerifier' servlet.
+
+      ### The 'DataVerifier' checks that the 'price' entered as text represents a numeric value.
+
+      ### The 'DataVerifier' servlet encapsulates methods to ensure that the product's name is
+          sufficiently long (at least 8 chars). 
+
+          #### The HTML5 'minlength' requirement implements this constraint on the client side.
+
+      ### The 'DataVerifier' also capitalizes separate words in a product's name. 
+
+          Example: 
+
+          Suppose the user enters this product name:   'atomic super skate ski'
+          The 'DataVerifier' would change the name to: 'Atomic Super Skate Ski'
+
+      ### The deployment file 'web.xml' maps the identifier 'dataVerifier', which is used in the
+          <form> element of 'create.jsp' and 'edit.jsp', to the 'utils.DataVerifier' servlet.
+
+      ### Once the data validation is finished, the 'DataVerifier' invokes 'sendResponse', which in
+          turn does an HTTP redirect to either 'goodResult.jsp' or 'badResult.jsp'.
+
+-------------------------------------------------------------------------------------------------------
+
+ # The do-methods
+
+   ## Only a POST request is accepted.
+
+      ### How to handle a GET request?
+
+          #### Could throw an exception to signal an HTTP status code of 405: 'Method Not Allowed'
+
+          #### In this implementation, a simple error message is returned.
+

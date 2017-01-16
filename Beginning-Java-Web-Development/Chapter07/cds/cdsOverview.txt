@@ -1,0 +1,36 @@
+
+ -- Overview of the 'cds' web app.
+
+    # Major pieces:
+
+      -- fetch.html: The 'welcome page', which contains jQuery script to call getCDs.jsp.
+
+      -- getCDs.jsp: Loads a back-end bean named the 'fetchBean', and implemented as fetcher.FetchXML.java.
+                     Makes a 'getProperty' call on the back-end bean's 'json' property.
+
+      -- fetcher.FetchXML: The backend bean with a 'getJson()' method. This bean uses a UrlConnection instance
+                           to access a REST-style web service that the W3 Schools hosts. The service returns
+                           a list of records from the 1980s, citing the artist, publisher, and price of each record.
+                           The data are in XML format, however.
+
+                           The bean therefore converts the XML document into JSON so that the jQuery in the browser
+                           can avoid parsing.
+
+                           The JSON document represents an array of CD POJO instances, each with properties such as
+                           artist and title.
+
+
+    # Here's a depiction of the architecture:
+ 
+          fetch.html      getCDs.jsp, fetcher.FetchXML.java
+              \                        \
+	   +---------+    GET      +---------+    GET      +-----------+
+     	   | jQuery  |------------>|   cds   |------------>|    W3C    |
+     	   | script  |<------------| service |<------------|  service  |
+     	   +---------+    JSON     +---------+    XML      +-----------+
+     	     browser                 server              W3 Schools server
+
+      ## The web app in the middle now does useful work by converting the XML document from the W3 Schools server
+         into JSON, which the jQuery script can process as it would any other JavaScript data structure.
+
+

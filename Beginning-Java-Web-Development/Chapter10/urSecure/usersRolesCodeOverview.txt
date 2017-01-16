@@ -1,0 +1,48 @@
+
+ -- Overview of the code in the users/roles example
+
+    # Design strategy: focus squarely on the security aspects
+   
+      ## App logic is deliberately minimal
+  
+      ## App UI is deliberately minimal
+
+    # The app pieces:
+
+      -- web.xml:          at the wire-level, requires CONFIDENTIAL and INTEGRAL services
+                           adds users/roles security through FORM authentication
+                           requires role authorization
+
+      -- login.html:       login form, designated as such in web.xml
+               
+      -- error.html:       error form, designated as such in web.xml
+
+      -- securePage1.jsp:  a secured resource and the 'welcome file'
+
+      -- securePage2.jsp:  another secured resource
+
+      -- logout.jsp:       accessible from securePage1.jsp and securePage2.jsp
+                           once executed, forces a new login to access any secured resource
+
+    # Dependencies:
+
+      -- TOMCAT_HOME/conf/tomcat-users.xml: the store for the usernames, passwords, and roles
+
+          <?xml version='1.0' encoding='utf-8'?>
+          <tomcat-users>
+               <role rolename = "bigshot"/>
+               <user username = "moe" password = "MoeMoeMoe" roles = "bigshot"/>
+          </tomcat-users>
+
+    # The 'gotcha' moment: 
+
+                    securePage1.jsp  +---------------+
+      user request------------------>| web container |------>Is user authenticated?
+                                     +---------------+        -- If so, grant access to the secured resource.
+
+                                                              -- If not, respond with the designated login form
+                                                                 but deny access to any other resource in the WAR file
+
+      ## Among the secured resources in the WAR file might be, for example, a CSS style sheet.
+
+         ### In the current example, then, the styling is embedded within the login page

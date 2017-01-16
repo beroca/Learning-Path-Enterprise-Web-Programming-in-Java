@@ -1,0 +1,23 @@
+ # JSP overview
+
+ ## A JSP (Java Server Pages) page is a template--a mix of HTML/CSS and code.
+
+    ### The code gets translated automatically at deployment time.
+
+ ## JSP 1.x ('old style') and JSP 2.x ('new style')
+
+    ### These can be intermixed, and for some tasks JSP 1.x is more convenient.
+
+ ## JSP pages are 'templates', a mix of HTML/CSS and code.
+
+    ### In the 'rendered' HTML page, the code is gone.
+
+ ## JSP 'scripts' are translated into servlet instances, that is, into executable Java byte-codes.
+
+    ### The translation is automatic, but--of course--there may be compilation errors, which
+        don't show up until deployment time.
+
+    ### So a JSP page is really a servlet-generating script: the servlet instance executes, and
+        writes out--literally--the HTML/CSS part of the JSP page and whatever else the code dictates.
+
+

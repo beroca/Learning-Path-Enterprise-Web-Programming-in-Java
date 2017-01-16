@@ -1,0 +1,35 @@
+ # JSP/DB interaction
+
+ ## Here are the pieces in the web app:
+
+    ### skiStuff.jsp -- uses JSTL (Java Standard Template Library), in particular the 'core' and 'sql' packages
+   
+         #### JSTL introduces 'customized tags', which contrast with familiar, standard HTML tags
+	      such as <html>, <body>, and so on.
+
+              Example: <c:core ... /> is a 'customized' tag, not a standard one.
+
+         #### A 'customized tag' needs a supporting implementation, which comes (as you'd now expect) in a JAR file.
+
+    ### error.jsp -- in web apps, the modules are 'pages', including code-bearing ones such as a JSP page.
+
+        #### In effect, an 'error page' acts as the 'catch' block in a non-web Java app: if an exception/error occurs
+             anywhere in a given page (e.g., 'skiStuff.jsp'), control flows to the designated error page
+	     (in this case, 'error.jsp').
+
+                           exception
+             skiStuff.jsp------------->error.jsp
+
+        #### The regular page ('skiStuff.jsp') specifies an error page (in this case, 'error.jsp')
+
+        #### An 'error page' declares itself to be such.
+
+   ### web.xml -- specifies 'skiStuff.jsp' as the 'welcome page' for the app
+
+   ### postgres-jdbc.jar -- contains the 'driver' and supporting code to talk to the DB
+
+   ### jstl-api.jar and jstl-impl.jar -- interface and implementation for JSTL
+
+   ### The EL ('expression language'), which represents 'new style' JSP for writing expressions.
+
+       #### Basically, syntax such as ${...} replaces old-style syntax such as <%= ... %>

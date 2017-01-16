@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<web-app>
+    <servlet>
+        <servlet-name>dvServlet</servlet-name>
+        <servlet-class>dataV.DataVerifier</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dvServlet</servlet-name>
+        <url-pattern>/dataVerifier</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+      <welcome-file>skiStuffCRUD.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>     

@@ -1,0 +1,28 @@
+ # JSTL libraries
+
+   ## Core -- aptly named, as they cover core programming constructs. 
+      We've seen <c:set...>, <c:forEach...>, <c:if...>, and a few others
+      
+     The directive is: <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  
+   ## SQL -- convenient way to talk to the DB.
+      We've seen <sql:setDataSource...> and <sql:query...>
+
+      The directive is: <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+   ## Format -- converting and formatting data, especially useful for i18n ('internationalization') tasks
+      The next demo...
+
+      The directive is: <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+
+   ## XML -- a way to create and manipulate XML documents.
+      On the back burner for now
+
+      The directive is: <%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
+
+   ## JSTL functions, mostly standard String-manipulation functions.
+      Examples include <fn:split()...>, <fn:toLowerCase()...>, and so on.
+
+      The directive is: <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+

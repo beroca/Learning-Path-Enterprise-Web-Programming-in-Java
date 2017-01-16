@@ -1,0 +1,45 @@
+ # Testing the data validation in the revised 'skiServ' web app
+
+   ## The challenge: if the browswer implements the HTML5 features used in the app, tainted data shouldn't
+      make it over to the server side.
+
+      ### So how do we test to ensure that the server-side validation is working?
+
+      ### We could tweak the HTML5, removing this or that check and then re-run: tedious, time-consuming,
+          and a bit ad hoc.
+
+   ## An alternative: test with a 'user agent' other than an HTML5-compliant browswer--even better, without a browser.
+
+      ### The 'curl' utility is well suited for the task.
+
+      ### The file 'curlTests.sh' illustrates.
+ 
+          #### The curl statements in this file could be run one at a time on any system.
+
+   ## Sample 'curl' tests (put together in 'curlTests.sh' for Unix-type systems):
+      
+      % curl --request GET http://localhost:8080/skiServ/skiStuffCRUD.jsp                         ## 'read all': GET
+
+      % curl --request GET http://localhost:8080/skiServ/show.jsp?id=1                            ## 'read one': GET
+
+      % curl --request POST --data "product=foo bar baz&category=one two three&price=1234.56" \   ## 'create': POST
+            -L http://localhost:8080/skiServ/dataVerifier                  
+
+           ### On the 1st call, here's the important part of the output:
+
+              ...
+              <div class  = "goodResult">
+                 ...
+              </div>
+              ...
+
+           ### If this same 'curl' request is repeated, the returned text changes to:
+              ...
+              <div class  = "badResult">
+                 ...
+              </div>
+              ...
+      % curl --request POST --data "product=moe 12&category=abc&price=234AB.56" \                 ## 'create': POST
+             -L http://localhost:8080/skiServ/dataVerifier
+    
+
