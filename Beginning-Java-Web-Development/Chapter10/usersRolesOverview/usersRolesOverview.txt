@@ -1,0 +1,48 @@
+
+  -- Users/roles security in web apps
+
+ # In plain terms, it comes down to two questions:
+    1. How can you verify your identity?
+    2. What access rights go with that identity?
+	
+   ## Logging into a machine illustrates: you provide a username (identity) and a password (supporting credential).
+      The login system then determines what you can with that identity.
+	  
+   ## Amazon web services example: my accessID (identity) and a hash value generated from my secretKey (credential
+      generator). Amazon authorizes access rights depending on this verified identity (e.g., I can place an
+      order for an item, but not set its price).
+
+ # The two phases in users/roles security:
+
+   1. User authentication (ID + supporting credential)
+   2. Role authorization (access rights)
+
+      ### 2 is typically automated with database lookups and the like.
+
+ # Implementating users/roles security on the service side:
+
+   ## Application-managed: not recommended, too ad hoc, does not scale.
+
+   ## Container-managed: let Tomcat or the equivalent handle the authentication/authorization.
+
+      ### Tomcat provides various options, including turning over auth/auth to an LDAP or similar service.
+
+          #### Among the options is JAAS (Java Authentication and Authorization Service), which supports high-level, 
+               powerful, and flexible authentication/authorization schemes.
+  
+ # The challenge on the client side:
+
+   ## Send the identity and credential in exactly the way the container expects.
+
+ # HTTP authentication modes
+    
+    	BASIC:       browser provides login form, username and password sent as is
+
+    	DIGEST:      message digest of password, not password itself, sent to server 	
+
+    	FORM:        app rather than browser provides the login form, and the container handles 
+                     the authentication/authorization--preferred method
+    	
+    	CLIENT-CERT: client digital certificate is sent as id and credential
+    	
+

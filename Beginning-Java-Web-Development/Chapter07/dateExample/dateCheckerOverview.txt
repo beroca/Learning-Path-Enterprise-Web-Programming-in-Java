@@ -1,0 +1,78 @@
+
+  -- HTML5 and JavaScript: a shift in the division of labor
+
+   # The 'checkDates' web app illustrates functionality that once required JS, but
+     now can be done just with HTML5 and a supporting browser.
+
+   # Earlier example from the 'login registration' web app:
+ 
+
+      <tr bgcolor = '${color}' color = '#ffffff'>
+        <td>Login email</td><td><input type = 'text' 
+				       name = 'email' 
+				       required/></td>
+
+      ## Checks inputs against this regex:
+
+            ^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$
+
+      ## There are still legit emails that fail to satisfy this expression--the problem of 'false negatives'.
+
+      </tr>
+      <tr bgcolor = '${color}' color = '$ffffff'>
+        <td>Password</td><td><input type = 'password' 
+				    name = 'password'
+				    pattern ="^((?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$!%]).{7,21})$"
+			            required/></td>
+      </tr>
+
+   # Example from temperature conversion:
+
+      Temperature: <input type = 'number' step = '0.01' name = 'tempIn' id = 'tempIn' required/>
+
+------------------------------------------------------------------------------------------------------------------
+
+ -- Using jQuery to enter 'from' and 'to' dates in a reservation system
+
+    # Emphasis is on the syntax and basic behavior of jQuery.
+
+    # The example illustrates UI functionality--picking dates via a popup calendar--that once required
+      JS of some type, but now doesn't: HTML5 has a 'date' type for inputs.
+
+      ## Does our browser support this HTML5 feature?
+
+      ## What about requests that bypass the browser (e.g., have 'curl' or the like as the 'user-agent')?
+
+    # The code pieces:
+
+      ## datepicker.html: HTML5 with core jQuery and jQueryUI for the popup calendars
+                          This is the 'welcome page', whose form is POSTed checkDates.jsp:
+
+                 POST request with a 'from' and a 'to' date
+                               \
+          datepicker.html-------------------->checkDates.jsp
+
+          ### Dates are also checked on the browser-side, with a server-side backup check.
+
+
+      ## checkDates.jsp:  Target for the submitted form. Uses a backend POJO to check whether
+                          the dates make sense (e.g., the 'to' date cannot precede the 'from' date).
+                          For development only, returns a simple 'ok' or 'not ok' depending on
+                          whether the dates make sense.
+
+                           uses
+          checkDates.jsp--------->utils.DateChecker instance
+
+      ## utils.DateChecker: POJO class that converts the user's dates (strings) into 
+                            Java Date instances, and then checks whether the 'from' and 'to'
+                            dates are ordered properly.
+
+    # Other features:
+
+      ## The 'welcome page' includes an HTML5 input of type 'date' for contrast with the jQueryUI
+         date-picking calendars.
+
+    
+
+
+          

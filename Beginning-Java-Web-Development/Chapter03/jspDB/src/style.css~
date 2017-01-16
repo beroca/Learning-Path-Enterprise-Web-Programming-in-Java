@@ -1,0 +1,16 @@
+tr:nth-child(even) {background: #ccc}
+tr:nth-child(odd)  {background: #fff}
+
+table.products td.rght {
+  text-align: right;
+}
+
+table.users td.cent {
+  text-align: center;
+}
+
+a {color: #151b8d; text-decoration:none;font-weight:bold;}
+a:visited {color: #151b8d;}
+a:hover {color: #fff; background-color: #666;}
+a {display: inline;}
+

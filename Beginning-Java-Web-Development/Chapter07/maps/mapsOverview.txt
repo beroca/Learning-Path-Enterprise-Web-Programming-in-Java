@@ -1,0 +1,51 @@
+
+ -- The architectural efficiency of JavaScript
+
+    # Various map and related geo-spatial services are available, among them Google Maps and Bing Maps. 
+      This example uses Bing maps.
+
+      ## An old-style scenario for displaying maps in a browser might look like this:
+
+
+                            GET request for map                  pass on request
+      +-------------------+        \             +------------+      /            +-----------------------------------+
+      | HTML page with JS |--------------------->|  web app   |------------------>| RESTful web service with map data |
+      |                   |<---------------------|            |<------------------|                                   |
+      +-------------------+         /            +------------+      \            +-----------------------------------+
+            browser               map              web server        map              server hosting the map service
+
+
+          ### Summary of the architecture:
+
+              -- The browser makes an initial request to the server that hosts the web app (the server in the middle).
+
+              -- The server responds with an HTML page with, say, a list of choices. The user picks one.
+
+              -- This choice is POSTed back to the app server, which then passes the request on to a server that
+                 has the maps.
+
+              -- The map server sends the map back to the app server, which sends it back to the browser.
+
+      ## Cut out the middle-man if the middle-man doesn't do any necessary, intermediate processing.
+
+                            GET request for map
+      +-------------------+        \             +-----------------------------------+
+      | HTML page with JS |--------------------->| RESTful web service with map data |
+      |                   |<---------------------|                                   |
+      +-------------------+         /            +-----------------------------------+
+            browser               map                server hosting the map service
+
+          ### Summary of the architecture:
+
+              -- Once again the browser makes an initial request to the app server for an HTML page.
+
+              -- The app server responds with the HTML page, which contains (or links to) JavaScript.
+
+              -- The JavaScript sends requests for maps directly to the map-service server, by-passing the
+                 app server.
+
+    # The big question: Is the cost of downloading and otherwise managing the JavaScript worth the savings gained
+                        from avoiding the middle-man?
+                        
+    # For more on the Bing API: https://msdn.microsoft.com/en-us/library/dd877180.aspx
+

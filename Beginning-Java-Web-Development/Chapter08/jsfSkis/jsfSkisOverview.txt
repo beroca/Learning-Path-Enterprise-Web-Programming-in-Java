@@ -1,0 +1,87 @@
+
+ -- Overview of JSF version 1 of Kelly's Ski Equipment
+
+    # The main pieces:
+
+      -- ajax.xhtml:              the 'welcome page', which uses the customized 'ajax' tag
+      -- beans.Controller.java:   the @ManagedBean that does most of the work
+      -- beans.SkiEquipItem.java: a 'model' that represents a ski equipment item
+      -- web.xml:                 configuration for the JavaFaces servlet and welcome page
+
+    # Some new features added to the UI, including JSF 'ajax' support.
+
+    # Additional JSF annotations in the back-end code, which consists of @ManagedBean classes.
+
+    # Particulars:
+
+      -- The current 'skisEtc' table has only 20 rows, but even this small number may be too many
+         to display all at once.
+
+         ## Paging by number (e.g., 10 per page) is one answer.
+
+         ## Paging by item category (e.g., 'Telemark Skis') is another.
+
+      -- The DOM can be viewed as falling into two parts:
+
+         ## The parts that remain unchanged, no matter what category is selected.
+
+            ### For instance, the page's title, the horizontal rule that separates the title from
+                what's below, the table headers, and the option list of equipment categories.
+
+         ## The parts that change.
+
+            ### In this case, the number of rows, the width of the columns needed to display the rows,
+                and the values in the columns. Also, the displayed selected-equipment type changes.
+
+    # What 'ajax' as a 'partial page update' is a good thing in this situation:
+
+      ## The 'look-and-feel' is better. Although full page updates in a browser typically are not as
+         abrupt as they once were, the 'jerky' look still occurs now and again, especially for pages
+         rich in assets. The 'ajax' updates avoid this problem.
+
+      ## The HTML source and accompanying CSS can be downloaded once, on the initial page fetch;
+         thereafter, it should be data only for the 'partial page update'.
+
+    # JSF's high-level approach: a customized tag specifies the control that's to enjoy 'ajaxy' updates.
+      In this example, it's the JSF table only, and there's customized tag to specify this control:
+
+       	 <f:ajax render = "equipmentTable"/>          
+
+      ## The JSF engine provides the required JavaScript.
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head id="j_idt2">    	
+      <title>Ajax-enabled Tables</title>
+      <link href="./styles.css" rel="stylesheet" type="text/css" />
+      <script type="text/javascript" src="/foo/javax.faces.resource/jsf.js.jsf;
+                    jsessionid=AC6A07244A8152B4993B81F1686D5853?ln=javax.faces&amp;stage=Development">
+      </script>
+     </head>
+     <body>
+     ...
+    <form id="j_idt6" name="j_idt6" 
+          method="post" action="/foo/ajax.jsf;
+          jsessionid=AC6A07244A8152B4993B81F1686D5853" 
+          enctype="application/x-www-form-urlencoded">
+      <input type="hidden" name="j_idt6" value="j_idt6" />
+      ...
+      <select id="j_idt6:j_idt8" name="j_idt6:j_idt8" size="1" 
+              onchange="mojarra.ab(this,event,'valueChange',0,'j_idt6:equipmentTable')">	
+        <option value="Alpine Boot" selected="selected">Alpine Boot</option>
+	<option value="Cross Country Boot">Cross Country Boot</option>
+	<option value="Telemark Boot">Telemark Boot</option>
+	<option value="Alpine Skis">Alpine Skis</option>
+	<option value="Alpine Touring Skis">Alpine Touring Skis</option>
+	<option value="Cross Country Skis">Cross Country Skis</option>
+	<option value="Telemark Skis">Telemark Skis</option>
+      </select>
+      </div>
+      ...
+      <input type="hidden" name="javax.faces.ViewState" 
+             id="j_id1:javax.faces.ViewState:0" 
+             value="7109064212345838183:2176362140968963594" autocomplete="off" />
+   </form>
+  </body>
+</html>
+
+

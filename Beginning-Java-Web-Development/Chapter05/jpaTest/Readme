@@ -1,0 +1,13 @@
+ The 'build.xml' included in this ZIP file is revised to handle
+ the 'persistence.xml' file. Here's the short version:
+
+ 1. In your working directory (the one that holds the 'build.xml' file),
+    create a META-INF subdirectory, and place the 'persistence.xml' file
+    in that subdirectory.
+
+ 2. Deploy as usual: ant -Dwar.name=jpaTest deploy
+
+ 3. The 'persistence.xml' file will be in its proper place:
+
+     WEB-INF/classes/META-INF/persistence.xml
+     

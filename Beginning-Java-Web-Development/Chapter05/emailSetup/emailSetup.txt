@@ -1,0 +1,45 @@
+
+-- Setting up the email confirmation from the 'shopping cart' web app
+
+ # Big challenge: we need an email server
+
+   ## If you have an 'admin email account' at gmail, yahoo mail, or the like, then you're set to make an 
+      SMTP (Simple Mail Transport Protocol) connection from the 'OrderPlacer' servlet.
+
+   ## Otherwise, a 'fake email host' is enough for development and testing.
+
+      ### A Java-based 'fake SMTP email server is available at: https://nilhcem.github.io/FakeSMTP/
+
+      ### Once downloaded, the 'fake email server' can be started from the command-line with this command:
+
+          % java -jar fakeSMTP.jar -s -b -p 2525  #### The executable JAR may have a version in its name.
+                                                  #### The -s -b flags start the server in the background.
+                                                  #### The -p 2525 sets the port to 2525 from the default 25
+                                                       (On many systems, you need 'root priveleges' to use a
+						       port number < 1024
+
+      ### The Java email-API packages are not included in core Java, but are available at:
+
+             http://www.oracle.com/technetwork/java/javamail/javamail145-1904579.html
+
+          The JAR file 'javax.mail.jar' should be included in the deployed WAR file. (If you're using the Ant script,
+          put this JAR file in the 'src' directory.
+
+ # Below is a dump from a test servlet that sends an email from me to me. Your output may differ in some details, 
+   but should be similar.
+
+   ## The fake email server will try to create a subdirectory called 'received-emails', and save emails therein.
+      Here's a dump of the test email:
+
+Date: Sat, 9 Jan 2016 14:36:09 -0600 (CST)
+From: kalin@cs.depaul.edu
+To: kalin@cs.depaul.edu
+Message-ID: <976947849.0.1452371769762@Martins-MacBook-Pro.local>
+Subject: Hello, world! (What else?)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+Hello, world!
+
+

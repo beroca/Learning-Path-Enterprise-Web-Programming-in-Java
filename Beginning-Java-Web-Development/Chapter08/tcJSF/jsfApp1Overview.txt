@@ -1,0 +1,60 @@
+ 
+ -- Overview of the 1st JSF web app
+
+    # Main contents of the deployed WAR file 'tcJSF.war':
+
+       WEB-INF/web.xml
+       WEB-INF/faces-config.xml
+       WEB-INF/classes/convert/C2F.class
+       WEB-INF/lib/javax.faces-2.jar
+       branding.html
+       index.xhtml
+       home.jsp
+       images/duke.png
+       convert/C2F.java
+-----------------------------------------------------------------
+
+    # Reference implementation is 'Mojarra': https://javaserverfaces.java.net/, version 2.x
+
+      ## If you're using the Ant script to build, the JAR file goes into the 'src' directory as usual
+
+    # The pieces:
+
+      ## Configuration
+
+         ### web.xml: 
+
+            -- Sets up the FacesServlet as the 'interceptor' (generic controller)
+
+            -- Sets the 'project stage' to development to ensure full error messages
+
+            -- Sets 'state saving' to 'client' for demo purposes
+
+         ### faces-config.xml:
+
+            -- Demos an explicit navigation rule
+
+       ## Miscellany
+
+         ### home.jsp: illustrates a redirect to a JSF page, in this case the welcome page 'index.jsf'.
+
+       ## UI
+
+          ### index.xhtml: the welcome page with an 'xhtml' extension, illustrates various packages available
+                           in JSF
+
+          ### branding.html: in effect, an HTML fragment, although written as a standalone HTML page: it is
+                            'included' in the welcome page, index.xhtml:
+
+                                             included as a fragment in
+                              branding.html---------------------------->index.xhtml
+
+                            The 'branding page' links to the image of the Java 'duke'
+
+
+       ## Back-end code for app logic
+
+          ### C2F.java: a @ManagedBean in JSF that does the temperature conversions
+
+
+ 

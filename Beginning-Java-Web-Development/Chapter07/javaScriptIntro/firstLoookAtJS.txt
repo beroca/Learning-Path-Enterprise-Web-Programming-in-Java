@@ -1,0 +1,53 @@
+ 
+  -- A first look at JavaScript and browser-side processing
+
+     # A modern web app divides the processing labor among the browser, the web server, the server-hosted app, 
+       the database, the email server, etc., etc., etc.
+
+       ## We're mostly interested in the broad division of labor between 'browser-side' ('client-side') 
+          and 'server-side' processing.
+
+       ## At one extreme, consider the homepage for the Meteor web framework: https://www.meteor.com
+          
+          -- Let's take a look at the source.
+
+     # JS basics in a typical scenario:
+
+                  HTTP request
+                      \
+       1. browser-------------->server
+
+                  HTTP response
+                       \
+       2. browser<--------------server
+                       /
+          HTML page with embedded or linked JavaScript
+
+
+       3. browser:  HTML source----->parser----->DOM (Document Object Model) == a tree representation of the source
+
+          ## The DOM is a readable/writable data structure; hence, JavaScript code can 'read' the DOM, and alter
+             the DOM with 'write' operations.
+
+          ## The browser detects a changed DOM, and redisplays it.
+
+       4. browser: Display the DOM in a window.
+
+       5. Once the DOM is 'ready', the JS can begin processing it.
+
+     # Many languages compile into JavaScript or are, in effect, extensions of JavaScript.
+
+       ## The list is huge, in the hundreds.
+
+       ## JavaScript 'frameworks' provide a high-level API and convenient shortcuts missing in 'raw' JS.
+          ### 'Raw' JS and a framework language typically can be intermixed seamlessly.
+
+       ## Recent languages such as WebAssembly and Elm have been proposed as alternatives to JS, but JS 
+          remains well established.
+
+       ## The important point is browser-side processing: pick something that makes sense to you.
+
+
+
+
+       

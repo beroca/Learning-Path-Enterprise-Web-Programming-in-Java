@@ -1,0 +1,40 @@
+  -- The legendary 'shopping cart' web app
+
+  # The 'ski inventory' web app, in its various versions, emphasizes the 'admin' side of a web site.
+
+    ## CRUD operations implemented to support typical 'admin' responsibilities with respect to the DB:
+
+       ### Create new Xs (in our case, ski equipment items).
+
+       ### Read Xs (all at once or one at a time)
+
+       ### Update a specified X (editing an existing X)
+
+       ### Delete a specified X 
+
+    ## On the 'admin' side, functionality trumps look-and-feel.
+
+    ## The CRUD-based 'admin' app is essentially a web front-end to a backend DB.
+
+       ### Most of the app logic deals with user-data validation and massaging.
+
+  # The focus now turns to the 'client' side of a web app. Some points of interest:
+
+    ## Familiar e-commerce sites implement 'shopping carts', in one form or another. The 'shopping cart'
+       has become, in effect, a familiar pattern in web apps.
+
+       ### Items for purchase need to be presented in a way that supports easy, error-free choices.
+
+       ### Items submitted for purchase should be presented in a 'confirmation page' that both summarizes
+           the details and gives the user the chance to order more or less of a specified item.
+
+       ### A 'final confirmation' page should summarize what's happened in the second step of
+           the two-step purchasing process.
+
+           #### An order should be saved in the database, a confirming email might be sent, etc.
+
+           #### Sending emails is straightforward at the API level, but requires access to an email server.
+    
+
+
+   

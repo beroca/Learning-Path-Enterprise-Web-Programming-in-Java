@@ -1,0 +1,62 @@
+ 
+  -- Ensuring HTTPS connections for a web app
+
+     # Sample app: the JSF temp convert app, essentially a 1-page app
+
+     # Big question: In general, require HTTPS for every page, or for only selected pages in the app?
+
+       ## Well-known ecommerce web sites (e.g., Amazon) take the latter approach:
+
+          -- A normal HTTP session for browsing and shopping.
+
+          -- A second HTTPS session for checking out.
+
+       ## The common practice at Java sites (e.g., the Mojarra homepage for JSF) is to
+          make the whole site HTTPS-accessible only.
+
+          -- https://javaserverfaces.java.net/
+
+       ## The usual question of tradeoffs:
+
+          ### There is overhead to an HTTPS session: the handshake, and then the
+              encryption/decryption of messages throughout the session.
+
+          ### However, there is inherent complexity in session-switching between HTTP and HTTPS:
+              the switching can be tricky, and perhaps expose security holes.
+
+          ### Either approach is possible in Java.
+-----------------------------------------------------------------------------------
+     
+  -- HTTPS through configuration, not code
+
+     # For web apps, nothing in the app itself should have to change except the main
+       configuration file: web.xml
+
+       ## In particular, absolutely no change in any code.
+
+       ## The HttpServletRequest interface has (via inheritance) an 'isSecure()' method that
+          returns true if and only if the request comes over a secure channel such as HTTPS.
+
+     # The change to the config file is minor. Here's the revised web.xml for the 
+       revised 'jsfTChttps' web app:
+
+       <web-app>
+         ...
+         <servlet>
+           <servlet-name>FacesServlet</servlet-name>
+           <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+         </servlet>
+
+         <!-- Added to ensure HTTPS for the app -->
+         <security-constraint>
+           <web-resource-collection>
+              <url-pattern>/*</url-pattern>
+           </web-resource-collection>
+           <user-data-constraint>
+             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+           </user-data-constraint>
+         </security-constraint>
+         ...
+       </web-app>
+
+

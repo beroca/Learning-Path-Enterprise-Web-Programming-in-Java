@@ -1,0 +1,4 @@
+<tomcat-users>
+  <role rolename="bigshot"/>
+  <user username="moe" password="MoeMoeMoe" roles="bigshot"/>
+</tomcat-users>
