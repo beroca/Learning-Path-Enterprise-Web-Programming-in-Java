@@ -1,0 +1,36 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<web-app>
+  <!-- This example uses JSF 2.2, which requires servlet 2.5 or later: Tomcat 6 or later
+       provides servlet 2.5. The URL 
+       
+       http://tomcat.apache.org/whichversion.html 
+
+       is useful for determing how Tomcat versions match up with servlet versions.
+       
+       Setting PROJECT_STAGE to 'Development' is helpful in that the error messages
+       are more detailed with this setting.
+  -->
+
+  <!-- The Faces servlet provides the 'context' for doing JSF. This servlet becomes
+       the HTTP endpoint for requests against the web app: the servlet is the 'interceptor'
+       the mediates between the client and the programmer-supplied code in the web app. 
+  -->
+  <servlet>
+    <servlet-name>FacesServlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>FacesServlet</servlet-name>
+    <url-pattern>*.jsf</url-pattern>
+  </servlet-mapping>
+
+  <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+  </context-param>
+
+  <welcome-file-list>
+    <welcome-file>ajax.jsf</welcome-file>
+  </welcome-file-list>
+</web-app>
