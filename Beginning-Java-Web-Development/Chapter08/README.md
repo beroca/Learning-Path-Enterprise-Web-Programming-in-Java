@@ -28,24 +28,41 @@
 ## 8.6. Analysis Of The Tempconvert Code 3
 - 0:06:03
 - [./tcJSF/home.jsp](tcJSF/home.jsp) -> [./tcJSF/index.jsf](tcJSF)/index.jsf
+- [./tcJSF/index.xhtml](tcJSF/index.xhtml)
+- [./tcJSF/branding.html](tcJSF/branding.html)
 
 ## 8.7. JSF Architecture And Special Features
 - 0:09:31
+- [jsfArch.txt](jsfArch.txt)
+- [./tcJSF/convert/C2F.java](./tcJSF/convert/C2F.java)
+- public class C2F { // #{c2F.convert}
 
 ## 8.8. Namespaces And Customized Tags In JSF
 - 0:06:47
+- [jsfNamespaces.txt](jsfNamespaces.txt)
 
 ## 8.9. Overview Of The JSFskis Web App
 - 0:09:10
+- <http://localhost:8080/jsfSkis>
+- [./jsfSkis/jsfSkisOverview.txt](./jsfSkis/jsfSkisOverview.txt)
 
 ## 8.10. Analysis Of The JSFskis Code 1
 - 0:06:36
+- [./jsfSkis/ajax.xhtml](./jsfSkis/ajax.xhtml)
 
 ## 8.11. Analysis Of The JSFskis Code 2
 - 0:08:02
+- [./jsfSkis/beans/SkiEquipItem.java](./jsfSkis/beans/SkiEquipItem.java)
+- [./jsfSkis/beans/Controller.java](./jsfSkis/beans/Controller.java)
 
 ## 8.12. Exercise: Writing A Web App In JSF
 - 0:05:44
+- [jsfExercise.txt](jsfExercise.txt)
+- Part 1: class EquipmentTypes, @ApplicationScoped
+- Part 2: <http://localhost:8080/skiEmail/>, select item, quatity.
 
 ## 8.13. Wrapup Of JSF
 - 0:08:19
+- [jsfWrapup.txt](jsfWrapup.txt)
+- <http://localhost:8080/tcJSF/index.jsf>
+- <http://localhost:8080/jsfSkis>
