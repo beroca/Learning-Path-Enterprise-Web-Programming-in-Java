@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<web-app>
+  <!-- This example uses JSF 2.2, which requires servlet 2.5 or later: Tomcat 6 or later
+       provides servlet 2.5. The URL 
+       
+       http://tomcat.apache.org/whichversion.html 
+
+       is useful for determing how Tomcat versions match up with servlet versions.
+       
+       Setting PROJECT_STAGE to 'Development' is helpful in that the error messages
+       are more detailed with this setting.
+
+       A tricky arhictectural question is how the web app's state should be maintained:
+       with client-side resources (basically, hidden fields in the page) or server-side resources 
+       (basically, the session hash). 'Server-side' is the default, but this example uses
+       'client-side' for proof of concept.
+  -->
+
+  <!-- The Faces servlet provides the 'context' for doing JSF. This servlet becomes
+       the HTTP endpoint for requests against the web app: the servlet is the 'interceptor'
+       the mediates between the client and the programmer-supplied code in the web app. 
+  -->
+  <servlet>
+    <servlet-name>FacesServlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FacesServlet</servlet-name>
+    <url-pattern>*.jsf</url-pattern>
+  </servlet-mapping>
+  <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+  </context-param>
+  <context-param>
+    <description>State saving: on 'client' or on 'server' (default)? </description>
+    <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+    <param-value>client</param-value>
+  </context-param>
+  <!-- Uncommenting this section requires that the JSTL JAR files be available to the web app,
+       and rules out use of JSF-specific expression syntax such as #{...}. The section is included
+       here for tutorial purposes only: my recommendation is to stick with straight JSF.
+       The app does include a JSP script, which'll be explained shortly. 
+
+  <context-param>     
+       <param-name>javax.faces.DEFAULT_SUFFIX</param-name>     
+    <param-value>.jsp</param-value> 
+  </context-param>
+  -->
+  <welcome-file-list>
+    <welcome-file>index.jsf</welcome-file>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

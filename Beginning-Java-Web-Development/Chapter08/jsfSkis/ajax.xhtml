@@ -1,0 +1,49 @@
+<html xmlns   = "http://www.w3.org/1999/xhtml"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:h = "http://java.sun.com/jsf/html">
+  <h:head>    	
+    <title>Ajax-enabled Tables</title>
+    <link href = "./styles.css" rel = "stylesheet" type = "text/css"/> 
+  </h:head>
+  <h:body>
+    <center><h3>Kelly's Ski Equipment</h3></center>
+    <br/>
+    <h:form>
+      <div align = "center"><b><span class = 'caption2'>Equipment category </span></b>
+	<h:selectOneMenu value = "#{controller.selectedType}">                  
+	  <f:selectItems value = "#{controller.menuChoices}"/>                  
+	  <f:ajax render = "equipmentTable"/>                                   
+	</h:selectOneMenu>
+      </div>
+      <hr/>
+      <p>  
+	<!-- JSF data table requires no explicit iteration: just a list and an iteration variable -->
+	<h:dataTable var = "item"                                
+		     value = "#{controller.items}"               
+		     border = "1"
+		     id = "equipmentTable"
+		     styleClass = "mainTable"
+		     captionClass = "caption1"
+		     headerClass = "heading"
+		     rowClasses = "even,odd">
+	  <f:facet name = "caption">#{controller.selectedType}</f:facet>
+	  <h:column>                                                                
+	    <f:facet name = "header">ID</f:facet> 
+	    #{item.id}
+	  </h:column>
+	  <h:column>
+	    <f:facet name = "header">Product</f:facet> 
+	    #{item.product}
+	  </h:column>
+	  <h:column>
+	    <f:facet name = "header">Price</f:facet> 
+	    <h:outputText value = "#{item.price}">
+	      <f:convertNumber currencySymbol = "$" type = "currency"/>
+	    </h:outputText>
+	  </h:column>
+	</h:dataTable>
+      </p>
+    </h:form>	
+  </h:body>
+</html>
+
